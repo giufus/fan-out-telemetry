@@ -2,6 +2,8 @@
 
 A local OpenTelemetry Collector setup that fans out telemetry data (metrics and logs) from Claude Code to multiple OTLP backends.
 
+<img src="sshot.png"/>
+
 ## How it works
 
 The collector exposes an OTLP/HTTP receiver on port `4318` and forwards data to two configurable backends:
