@@ -1,0 +1,38 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+
+exporters:
+  otlp_http/boss:
+    endpoint: "${BOSS_ENDPOINT}"
+    headers:
+      Authorization: "${BOSS_TOKEN}"
+    sending_queue:
+      enabled: true
+    retry_on_failure:
+      enabled: true
+
+  otlp_http/mine:
+    endpoint: "${MY_ENDPOINT}"
+    headers:
+      Authorization: "${MY_TOKEN}"
+    sending_queue:
+      enabled: true
+    retry_on_failure:
+      enabled: true
+
+service:
+  pipelines:
+    metrics:
+      receivers:  [otlp]
+      processors: [batch]
+      exporters:  [otlp_http/boss, otlp_http/mine]
+    logs:
+      receivers:  [otlp]
+      processors: [batch]
+      exporters:  [otlp_http/mine]
