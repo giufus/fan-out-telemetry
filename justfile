@@ -18,7 +18,6 @@ start: _render
         -p 4318:4318 \
         otel/opentelemetry-collector-contrib \
         --config /etc/otel/config.yaml;
-    sudo rm -rf {{rendered_path}}
 
 stop:
     docker stop {{collector_name}} || true
